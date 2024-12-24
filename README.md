@@ -32,6 +32,7 @@ These Python scripts are packaged into executable files using `PyInstaller`.
 
 - [cursor_ext_open-with-cursor-context-menu](https://github.com/eatcosmos/cursor_ext_open-with-cursor-context-menu) - A fork of the above project that adds a batch file for easy installation with a double-click.
 
+- [Cursor Context Menu Installer](https://github.com/hexcreator/open-with-cursor) - A similar project that uses C++ scripts to achieve similar functionality.
 
 ## License
 
