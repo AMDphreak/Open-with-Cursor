@@ -7,11 +7,12 @@
 - 修改注册表可能影响系统稳定性，操作前请务必备份相关注册表项。
 - 请确保将示例中的路径替换为您系统中Cursor.exe的实际安装路径。
 - 如遇问题，可以删除添加的注册表项来撤销更改。
+- 本指南使用 `HKEY_CURRENT_USER` 而非 `HKEY_CLASSES_ROOT`，这意味着更改是用户特定的，不需要管理员权限。
 
 ## 为文件添加右键菜单选项
 
 1. 打开注册表编辑器（按Win+R，输入"regedit"并回车）。
-2. 导航至 `HKEY_CLASSES_ROOT\*\shell`.
+2. 导航至 `HKEY_CURRENT_USER\Software\Classes\*\shell`.
 3. 右击"shell"文件夹，选择"新建" > "项"，将其命名为"Cursor".
 4. 在右侧窗格中，将"(默认)"值设置为"通过 Cursor 打开".
 5. 创建一个名为"Icon"的字符串值，将其设置为Cursor.exe的完整路径：
@@ -22,12 +23,12 @@
 
 ## 为文件夹添加右键菜单选项
 
-1. 导航至 `HKEY_CLASSES_ROOT\Directory\shell`.
+1. 导航至 `HKEY_CURRENT_USER\Software\Classes\Directory\shell`.
 2. 按照上述步骤3-7进行操作，为文件夹添加右键菜单选项。
 
 ## 为文件夹背景添加右键菜单选项
 
-1. 导航至 `HKEY_CLASSES_ROOT\Directory\Background\shell`.
+1. 导航至 `HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell`.
 2. 按照上述步骤3-7进行操作，为文件夹背景添加右键菜单选项。
 
 ## 使更改生效

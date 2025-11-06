@@ -7,11 +7,12 @@ This guide will explain how to add right-click menu options for the Cursor edito
 - Modifying the registry may affect system stability. Be sure to back up the relevant registry entries before proceeding.
 - Make sure to replace the paths in the examples with the actual installation path of Cursor.exe on your system.
 - If you encounter issues, you can undo the changes by deleting the added registry entries.
+- This guide uses `HKEY_CURRENT_USER` instead of `HKEY_CLASSES_ROOT`, which means the changes are user-specific and do not require administrator privileges.
 
 ## Add Right-Click Menu Option for Files
 
 1. Open the Registry Editor (press Win+R, type "regedit" and press Enter).
-2. Navigate to `HKEY_CLASSES_ROOT\*\shell`.
+2. Navigate to `HKEY_CURRENT_USER\Software\Classes\*\shell`.
 3. Right-click the "shell" folder, select "New" > "Key", and name it "Cursor".
 4. In the right pane, set the "(Default)" value to "Open with Cursor".
 5. Create a string value named "Icon" and set it to the full path of Cursor.exe:
@@ -22,12 +23,12 @@ This guide will explain how to add right-click menu options for the Cursor edito
 
 ## Add Right-Click Menu Option for Folders
 
-1. Navigate to `HKEY_CLASSES_ROOT\Directory\shell`.
+1. Navigate to `HKEY_CURRENT_USER\Software\Classes\Directory\shell`.
 2. Follow steps 3-7 as described above to add the right-click menu option for folders.
 
 ## Add Right-Click Menu Option for Folder Backgrounds
 
-1. Navigate to `HKEY_CLASSES_ROOT\Directory\Background\shell`.
+1. Navigate to `HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell`.
 2. Follow steps 3-7 as described above to add the right-click menu option for folder backgrounds.
 
 ## Apply Changes

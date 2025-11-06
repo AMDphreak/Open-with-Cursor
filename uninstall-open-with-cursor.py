@@ -1,27 +1,18 @@
 import winreg
-import ctypes
 import sys
-
-def is_admin():
-    try:
-        return ctypes.windll.shell32.IsUserAnAdmin()
-    except:
-        return False
 
 def remove_cursor_menu(key_path):
     try:
-        winreg.DeleteKey(winreg.HKEY_CLASSES_ROOT, f"{key_path}\\Cursor\\command")
-        winreg.DeleteKey(winreg.HKEY_CLASSES_ROOT, f"{key_path}\\Cursor")
-        print(f"Successfully removed Cursor menu from {key_path}")
+        # Use HKEY_CURRENT_USER\Software\Classes instead of HKEY_CLASSES_ROOT
+        # This allows user-specific uninstallation without admin privileges
+        full_path = f"Software\\Classes\\{key_path}"
+        winreg.DeleteKey(winreg.HKEY_CURRENT_USER, f"{full_path}\\Cursor\\command")
+        winreg.DeleteKey(winreg.HKEY_CURRENT_USER, f"{full_path}\\Cursor")
+        print(f"Successfully removed Cursor menu from HKEY_CURRENT_USER\\Software\\Classes\\{key_path}")
     except WindowsError as e:
         print(f"Error removing Cursor menu from {key_path}: {e}")
 
 def main():
-    if not is_admin():
-        # Re-run the program with admin rights
-        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
-        return
-
     # Remove right-click menu for files
     remove_cursor_menu(r"*\shell")
 

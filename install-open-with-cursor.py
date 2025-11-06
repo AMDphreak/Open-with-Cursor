@@ -1,21 +1,14 @@
 import winreg
 import os
 import sys
-import ctypes
 import locale
-
-def is_admin():
-    try:
-        return ctypes.windll.shell32.IsUserAnAdmin()
-    except:
-        return False
-
-def run_as_admin():
-    ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
 
 def add_cursor_menu(key_path, cursor_path):
     try:
-        key = winreg.CreateKey(winreg.HKEY_CLASSES_ROOT, key_path)
+        # Use HKEY_CURRENT_USER\Software\Classes instead of HKEY_CLASSES_ROOT
+        # This allows user-specific installation without admin privileges
+        full_path = f"Software\\Classes\\{key_path}"
+        key = winreg.CreateKey(winreg.HKEY_CURRENT_USER, full_path)
         cursor_key = winreg.CreateKey(key, "Cursor")
         
         # Detect system default language
@@ -28,17 +21,11 @@ def add_cursor_menu(key_path, cursor_path):
         command_key = winreg.CreateKey(cursor_key, "command")
         winreg.SetValue(command_key, "", winreg.REG_SZ, f'"{cursor_path}" "%V"')
         
-        print(f"Successfully added Cursor menu to {key_path}")
+        print(f"Successfully added Cursor menu to HKEY_CURRENT_USER\\Software\\Classes\\{key_path}")
     except WindowsError as e:
         print(f"Error adding Cursor menu to {key_path}: {e}")
 
 def main():
-    # Check if the script is running with admin privileges
-    if not is_admin():
-        print("This script requires administrator privileges to modify the registry. Attempting to restart with elevated permissions...")
-        run_as_admin()
-        sys.exit()
-
     # Get the path to Cursor.exe
     cursor_path = os.path.expandvars(r"%LOCALAPPDATA%\Programs\Cursor\Cursor.exe")
     

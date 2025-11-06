@@ -9,8 +9,10 @@ This project adds Cursor editor options to the Windows context menu for files, f
 
 ## Usage
 
-1. Installation: Run `install-open-with-cursor.exe` with administrator privileges.
-2. Uninstallation: Run `uninstall-open-with-cursor.exe` with administrator privileges.
+1. Installation: Run `install-open-with-cursor.exe` (no administrator privileges required).
+2. Uninstallation: Run `uninstall-open-with-cursor.exe` (no administrator privileges required).
+
+**Note:** The scripts now use `HKEY_CURRENT_USER` instead of `HKEY_CLASSES_ROOT`, making the installation user-specific and eliminating the need for administrator privileges.
 
 ## Source Code
 
